@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <div>
         <header>
             <nav class=" border-gray-200 bg-gray-900">
@@ -163,6 +162,7 @@
             </div>
         </main>
     </div>
+
     <div class="bg-gray-900">
         <footer>
             <div
@@ -170,7 +170,7 @@
                 <div class="container px-4 mx-auto">
                     <div class="-mx-4 flex flex-wrap justify-between">
                         <div class="px-4 my-4 w-full xl:w-1/5">
-                            <a href="/" class="block w-56 mb-10">
+                            <a href="{{route('home.index')}}" class="block w-56 mb-10">
                                 <svg version="1.1" viewBox="0 0 3368 512" xmlns="http://www.w3.org/2000/svg">
                                     <g fill="none" fill-rule="evenodd">
                                         <g transform="translate(0 -75)">
@@ -223,8 +223,7 @@
                         </div>
                         <div class="px-4 my-4 w-full sm:w-auto xl:w-1/5">
                             <div>
-                                <h2 class="inline-block text-2xl pb-4 mb-4 border-b-4 border-blue-600">Siguenos en
-                                    redes
+                                <h2 class="inline-block text-2xl pb-4 mb-4 border-b-4 border-blue-600">Siguenos en redes
                                 </h2>
                             </div>
                             <a href="#"
@@ -273,18 +272,17 @@
                                 </svg>
                             </a>
                             <div>
-                                <h2 class="inline-block text-2xl pb-4 mt-8 border-b-4 border-blue-600">Libro de
-                                    reclamaciones
+                                <h2 class="inline-block text-2xl pb-4 mt-8 border-b-4 border-blue-600">Libro de reclamaciones
                                 </h2>
                                 <a href="#">
-                                    <img src="https://www.crisol.com.pe/media/tem-banners/Item_libro_de_reclamaciones_128x80.png"
-                                        alt="libro de reclamaciones" class="mt-3">
+                                    <img src="https://www.crisol.com.pe/media/tem-banners/Item_libro_de_reclamaciones_128x80.png" alt="libro de reclamaciones" class="mt-3">
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="bg-indigo-700">
                 <div class="bg-indigo-700 py-4 text-gray-100 max-w-screen-xl mx-auto">
                     <div class="container mx-auto px-4">
@@ -296,7 +294,6 @@
                     </div>
                 </div>
             </div>
-
         </footer>
     </div>
 </body>
