@@ -19,7 +19,7 @@ class AuthAdminController extends Controller
 
     public function showBooks(){
 
-        $books = Book::all();
+        $books = Book::where('id','>=',1)->paginate(5);
         return view('admin.dashboardBooks',compact('books'));
     }
 
@@ -28,7 +28,7 @@ class AuthAdminController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('admin');
+        return redirect()->route('admin')->with('success','success');
     }
 
 

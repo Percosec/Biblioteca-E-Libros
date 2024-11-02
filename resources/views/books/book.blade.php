@@ -2,202 +2,170 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="https://images.vexels.com/content/229082/preview/book-circles-logo-82dff4.png"
         type="image/x-icon">
     <title>E-Libros</title>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
 </head>
 
 <body>
-    <div>
-        <header>
-            <nav class="border-gray-200 bg-gray-900">
-                <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a href="{{ route('home.index') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="{{ asset('images/logo.png') }}" class="h-8" alt="logo" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">E-Libros</span>
-                    </a>
-                    <div class="flex md:order-2">
-                        <div class="relative hidden md:block">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                                <span class="sr-only">Search icon</span>
-                            </div>
-                            <form action="" method="POST">
-                                <input type="text" id="buscar" name="texto"
-                                    class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Buscar...">
-                            </form>
-                            <div id="resultado"
-                                class="absolute top-full left-0 w-full  text-sm text-gray-900  border-gray-300 rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 z-50 ">
-                            </div>
-                        </div>
-                        <a href="{{ route('auth.login') }}" class=" ml-3">
-                            <button type="button"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                Iniciar Sesion
-                            </button>
-                        </a>
-                        <button data-collapse-toggle="navbar-search" type="button"
-                            class="inline-flex items-center ml-2 p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                            aria-controls="navbar-search" aria-expanded="false">
-                            <span class="sr-only">Open main menu</span>
-                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 17 14">
+    <header>
+        <nav class=" border-gray-200 bg-gray-900">
+            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <a href="{{ route('auth.logeado') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <img src="https://images.vexels.com/content/229082/preview/book-circles-logo-82dff4.png"
+                        class="h-8" alt="logo" />
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">E-Libros</span>
+                </a>
+                <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <div class="relative hidden md:block">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
-                        </button>
-
-                    </div>
-                    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                        id="navbar-search">
-                        <div class="relative mt-3 md:hidden">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                            </div>
-                            <input type="text" id="mysearch"
+                            <span class="sr-only">Search icon</span>
+                        </div>
+                        <form action="{{ route('buscador.logeadoBuscar') }}" method="POST" class="mr-5">
+                            <input type="text" id="buscar" name="texto"
                                 class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Buscar...">
-                            <ul id="showlist"></ul>
+                        </form>
+                        <div id="resultado"
+                            class="absolute top-full left-0 w-full  text-sm text-gray-900  border-gray-300 rounded bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 z-50 ">
                         </div>
-                        <ul
-                            class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  bg-gray-900 border-gray-700 ">
+                    </div>
+                    <button type="button"
+                        class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                        id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
+                        data-dropdown-placement="bottom">
+                        <span class="sr-only">Abrir menu de usuario</span>
+                        <img class="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/3237/3237472.png"
+                            alt="user photo">
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                        id="user-dropdown">
+                        <div class="px-4 py-3">
+                            <span class="block text-sm dark:text-white">{{ $username }}</span>
+                            <span
+                                class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ $email }}</span>
+                        </div>
+                        <ul class="py-2" aria-labelledby="user-menu-button">
                             <li>
-                                <a href="#"
-                                    class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 "
-                                    aria-current="page">Inicio</a>
+                                <a href="{{ route('showcart') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Carrito
+                                    @if ($cartItems < 1)
+                                        <span
+                                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs p-3 font-semibold text-white bg-red-600  rounded-md">
+                                            {{ $cartItems }}
+                                        </span>
+                                    @else
+                                        <span
+                                            class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs p-3 font-semibold text-white bg-red-600  rounded-md">
+
+                                            {{ $cartItems }}
+                                        </span>
+                                    @endif
+                                </a>
                             </li>
                             <li>
-                                <a href="{{ route('books') }}"
-                                    class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400  md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Libros</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400  md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contactanos</a>
+                                <form action="{{ route('auth.logout') }}" method="POST">
+                                    @csrf
+                                    <a
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                        <button type="submit">
+                                            Cerrar Sesion
+                                        </button>
+                                    </a>
+                                </form>
                             </li>
                         </ul>
-
                     </div>
-                </div>
-            </nav>
-        </header>
-    </div>
-    <div>
-        <main>
-
-            <div class="max-w-7xl mx-auto mt-5 px-3">
-
-                <div id="default-carousel" class="relative rounded-lg overflow-hidden shadow-lg" data-carousel="static">
-                    <!-- Carousel wrapper -->
-                    <div class="relative h-80 md:h-96" data-carousel-inner>
-                        <!-- Item 1 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_banner-principal_infantil_03-09.jpg"
-                                class="object-cover w-full h-full" alt="Slide 1">
-                        </div>
-                        <!-- Item 2 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_home_banner-principal_mangas_03-09.jpg"
-                                class="object-cover w-full h-full" alt="Slide 2">
-                        </div>
-                        <!-- Item 3 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_banner-principal_HP_03-09.jpg"
-                                class="object-cover w-full h-full" alt="Slide 3">
-                        </div>
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd__banner-principal_preventa.jpg"
-                                class="object-cover w-full h-full" alt="Slide 3">
-                        </div>
-                    </div>
-                    <!-- Slider indicators -->
-                    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-                            data-carousel-slide-to="0"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                            aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                            aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                            aria-label="Slide 4" data-carousel-slide-to="3"></button>
-                    </div>
-                    <!-- Slider controls -->
-                    <button type="button"
-                        class="flex absolute top-1/2 left-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition"
-                        data-carousel-prev>
-                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 19l-7-7 7-7">
-                            </path>
-                        </svg>
-                    </button>
-                    <button type="button"
-                        class="flex absolute top-1/2 right-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition"
-                        data-carousel-next>
-                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                            </path>
+                    <button data-collapse-toggle="navbar-user" type="button"
+                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        aria-controls="navbar-user" aria-expanded="false">
+                        <span class="sr-only">Abrir menú principal</span>
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 17 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 1h15M1 7h15M1 13h15" />
                         </svg>
                     </button>
                 </div>
-
+                <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+                    <ul
+                        class="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0    bg-gray-900 border-gray-700 ">
+                        <li>
+                            <a href="{{route('auth.logeado')}}"
+                                class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                                aria-current="page">Inicio</a>
+                        </li>
+                        <li>
+                            <a href="{{route('booksLogeado')}}"
+                                class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Libros</a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contactanos</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
-            <div class="max-w-screen-xl mx-auto mt-5 px-3">
-                <h1 class=" text-2xl text-blue-800 font-[500]">Los más destacados</h1>
-                <hr class=" border-y-blue-900 border-y-4 rounded-full">
-            </div>
-
-            <section id="Projects"
-                class="w-fit mx-auto grid grid-cols-1 breakpoint:grid-cols-4 breakpoint2:grid-cols-3 breakpoint3:grid-cols-2 breakpoint3:gap-x-16 justify-items-center justify-center gap-y-20  breakpoint:gap-x-8 mt-10 mb-5">
-
-                @foreach ($books as $book)
-                    <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+        </nav>
+    </header>
+    <div class=" py-28 ">
+        <div class="mx-auto px-4  max-w-screen-xl">
+            <div class="flex flex-col md:flex-row -mx-4">
+                <div class="px-4">
+                    <div class="h-[350px] rounded-lg  mb-4">
                         @if ($book->image == null)
-                            <img src="{{ asset('/images/no-image.jpg') }}" alt="Libro"
-                                class="h-80 w-72  object-contain rounded-t-xl" />
+                            <img class="w-full h-full object-cover" src="{{ asset('/images/no-image.jpg') }}"
+                                alt="Libro">
                         @else
-                            <img src="{{ asset('storage/' . $book->image) }}" alt="Libro"
-                                class="h-80 w-72  object-contain rounded-t-xl" />
+                            <img class="w-full h-full object-cover" src="{{ asset('storage/' . $book->image) }}"
+                                alt="Libro">
                         @endif
-                        <div class="px-4 py-3 w-72">
-
-                            <p class="text-lg  text-gray-400 truncate block capitalize">{{ $book->author }}</p>
-                            <h1 class="text-lg font-bold text-black truncate block capitalize">{{ $book->title }}</h1>
-                            <div class="flex items-center">
-                                <p class="text-lg font-semibold text-black cursor-auto my-3">S/{{ $book->price }}</p>
-
-                                <div class="ml-auto">
-                                    <a href="{{ route('auth.login') }}">
-                                        <button
-                                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Añadir
-                                            al carrito</button>
-                                    </a>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="flex -mx-2 mb-4">
+                        <div class=" w-[100%] px-2">
+                            <form action="{{ route('addcart') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $book->id }}">
+                                <button
+                                class="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Agregar
+                                al Carro</button>
+                            </form>
                         </div>
                     </div>
-                @endforeach
-            </section>
-        </main>
+                </div>
+                <div class="md:flex-1 px-4">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">{{ $book->title }}</h2>
+                    <div class="flex mb-4">
+                        <div class="mr-4">
+                            <span class="font-bold text-gray-700 dark:text-gray-300">Autor:</span>
+                            <span class="text-gray-600 dark:text-gray-300">{{ $book->author }}</span>
+                        </div>
+                        <div class="mr-4">
+                            <span class="font-bold text-gray-700 dark:text-gray-300">Precio:</span>
+                            <span class="text-gray-600 dark:text-gray-300">S/{{ $book->price }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-bold text-gray-700 dark:text-gray-300">Descripcion:</span>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mt-2">
+                            {{ $book->description }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 
     <div class="bg-gray-900">
         <footer>
@@ -313,7 +281,7 @@
                                     reclamaciones
                                 </h2>
                                 <a href="#">
-                                    <img src="{{ asset('images/libroreclamaciones.png') }}"
+                                    <img src="https://www.crisol.com.pe/media/tem-banners/Item_libro_de_reclamaciones_128x80.png"
                                         alt="libro de reclamaciones" class="mt-3">
                                 </a>
                             </div>
@@ -335,12 +303,11 @@
             </div>
         </footer>
     </div>
-    <script src="{{ asset('search/js/search.js') }}" type="module"></script>
-    {{-- <script>
+    <script>
         window.addEventListener("load", function() {
             const urlMap = {
-                "el señor de los anillos": "http://127.0.0.1:8000/book/1",
-                "la metamorfosis": "http://127.0.0.1:8000/book/2",
+                "el señor de los anillos": "http://127.0.0.1:8000/logeado/book/1",
+                "la metamorfosis": "http://127.0.0.1:8000/logeado/book/2",
                 "invitacion al viaje y otros cuentos ineditos": "http://127.0.0.1:8000/logeado/book/3",
                 "en agosto nos vemos": "http://127.0.0.1:8000/logeado/book/4",
                 "shogun": "http://127.0.0.1:8000/logeado/book/5",
@@ -366,77 +333,80 @@
                 "el principito": "http://127.0.0.1:8000/logeado/book/25"
                 // Añade aquí tantos títulos y URLs como necesites
             };
-    
+
             const buscar = document.getElementById('buscar');
             const resultado = document.getElementById('resultado');
-    
+
             function normalizeTitle(title) {
                 return title.trim().toLowerCase();
             }
-    
+
             function contieneCaracteresEspeciales(str) {
                 const regex = /[^a-zA-Z0-9\s]/;
                 return regex.test(str);
             }
-    
+
             buscar.addEventListener("keyup", (e) => {
                 if (buscar.value.trim() === "") {
                     resultado.innerHTML = "";
                     return;
                 }
-    
+
                 // Prevenir acción por defecto al presionar Enter si las condiciones no se cumplen
-                if (e.key === 'Enter' && (contieneCaracteresEspeciales(buscar.value) || buscar.value.trim() === "" || !(normalizeTitle(buscar.value) in urlMap))) {
+                if (e.key === 'Enter' && (contieneCaracteresEspeciales(buscar.value) || buscar.value
+                    .trim() === "" || !(normalizeTitle(buscar.value) in urlMap))) {
                     e.preventDefault();
                     return;
                 }
-    
-                fetch(`/buscador`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        texto: buscar.value
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]").content
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var html = "";
-                    if (data.success) {
-                        html += "<ul>";
-                        let noResult = true;
-                        for (var i in data.data) {
-                            const normalizedTitle = normalizeTitle(data.data[i].title);
-                            let url = urlMap[normalizedTitle] || "";
-                            if (url) {
-                                noResult = false;
-                                html += "<li><a href='" + url + "'>" + data.data[i].title + "</a></li>";
+
+                fetch(`/logeado/buscador`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            texto: buscar.value
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]")
+                                .content
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        var html = "";
+                        if (data.success) {
+                            html += "<ul>";
+                            let noResult = true;
+                            for (var i in data.data) {
+                                const normalizedTitle = normalizeTitle(data.data[i].title);
+                                let url = urlMap[normalizedTitle] || "";
+                                if (url) {
+                                    noResult = false;
+                                    html += "<li><a href='" + url + "'>" + data.data[i].title +
+                                        "</a></li>";
+                                }
+                            }
+                            html += "</ul>";
+                            resultado.innerHTML = html;
+
+                            // Prevenir acción por defecto si no hay resultados válidos al presionar Enter
+                            if (e.key === 'Enter' && noResult) {
+                                e.preventDefault();
+                            }
+                        } else {
+                            html += "No existen resultados";
+                            resultado.innerHTML = html;
+
+                            // Prevenir acción por defecto si no hay resultados al presionar Enter
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
                             }
                         }
-                        html += "</ul>";
-                        resultado.innerHTML = html;
-    
-                        // Prevenir acción por defecto si no hay resultados válidos al presionar Enter
-                        if (e.key === 'Enter' && noResult) {
-                            e.preventDefault();
-                        }
-                    } else {
-                        html += "No existen resultados";
-                        resultado.innerHTML = html;
-    
-                        // Prevenir acción por defecto si no hay resultados al presionar Enter
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                        }
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                    })
+                    .catch(error => console.error('Error:', error));
             });
         });
-    </script> --}}
+    </script>
 </body>
 
 </html>

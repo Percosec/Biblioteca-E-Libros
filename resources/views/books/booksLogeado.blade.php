@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -99,29 +99,29 @@
                     </button>
                 </div>
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
-                    <div class="relative mt-3 md:hidden">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </div>
-                        <input type="text" id="mysearch"
-                            class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Buscar...">
-                        <ul id="showlist"></ul>
-                    </div>
                     <ul
                         class="flex flex-col font-medium p-4 md:p-0 mt-4 border rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0    bg-gray-900 border-gray-700 ">
+                        <div class="relative mt-3 md:hidden">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
+                            </div>
+                            <input type="text" id="mysearch"
+                                class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Buscar...">
+                            <ul id="showlist"></ul>
+                        </div>
                         <li>
-                            <a href="#"
-                                class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 "
+                            <a href="{{ route('auth.logeado') }}"
+                                class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                                 aria-current="page">Inicio</a>
                         </li>
                         <li>
                             <a href="{{ route('booksLogeado') }}"
-                                class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Libros</a>
+                                class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 ">Libros</a>
                         </li>
                         <li>
                             <a href="#"
@@ -132,73 +132,10 @@
             </div>
         </nav>
     </header>
+
     <main>
-        <div class="max-w-screen-xl mx-auto mt-5 px-3">
-
-            <div id="default-carousel" class="relative rounded-lg overflow-hidden shadow-lg" data-carousel="static">
-                <!-- Carousel wrapper -->
-                <div class="relative h-80 md:h-96" data-carousel-inner>
-                    <!-- Item 1 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                        <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_banner-principal_infantil_03-09.jpg"
-                            class="object-cover w-full h-full" alt="Slide 1">
-                    </div>
-                    <!-- Item 2 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_home_banner-principal_mangas_03-09.jpg"
-                            class="object-cover w-full h-full" alt="Slide 2">
-                    </div>
-                    <!-- Item 3 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_banner-principal_HP_03-09.jpg"
-                            class="object-cover w-full h-full" alt="Slide 3">
-                    </div>
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_banner-principal_romance_03-09.jpg"
-                            class="object-cover w-full h-full" alt="Slide 3">
-                    </div>
-                </div>
-                <!-- Slider indicators -->
-                <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-                        data-carousel-slide-to="0"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
-                        data-carousel-slide-to="1"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
-                        data-carousel-slide-to="2"></button>
-                    <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4"
-                        data-carousel-slide-to="3"></button>
-                </div>
-                <!-- Slider controls -->
-                <button type="button"
-                    class="flex absolute top-1/2 left-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition"
-                    data-carousel-prev>
-                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
-                        </path>
-                    </svg>
-                </button>
-                <button type="button"
-                    class="flex absolute top-1/2 right-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition"
-                    data-carousel-next>
-                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                        </path>
-                    </svg>
-                </button>
-            </div>
-
-        </div>
-
-        <div class="max-w-screen-xl mx-auto mt-5 px-3">
-            <h1 class=" text-2xl text-blue-800 font-[500]">Los más destacados</h1>
-            <hr class=" border-y-blue-900 border-y-4 rounded-full">
-        </div>
-
         <section id="Projects"
-            class="w-fit mx-auto grid grid-cols-1 breakpoint:grid-cols-4 breakpoint2:grid-cols-3 breakpoint3:grid-cols-2 breakpoint3:gap-x-16 justify-items-center justify-center gap-y-20  breakpoint:gap-x-8 mt-10 mb-5">
+            class="max-w-screen-xl w-fit mx-auto grid grid-cols-1 breakpoint:grid-cols-4 breakpoint2:grid-cols-3 breakpoint3:grid-cols-2 breakpoint3:gap-x-16 justify-items-center justify-center gap-y-20  breakpoint:gap-x-1 mt-10 mb-5">
             @foreach ($books as $book)
                 <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                     @if ($book->image == null)
@@ -231,6 +168,33 @@
                     </div>
                 </div>
             @endforeach
+            <div class="flex justify-between items-center mt-4">
+                {{-- Botón anterior --}}
+                @if ($books->onFirstPage())
+                    <span class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</span>
+                @else
+                    <a href="{{ $books->previousPageUrl() }}" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>
+                @endif
+
+                {{-- Números de página --}}
+                <div class="flex space-x-2">
+                    @for ($i = 1; $i <= $books->lastPage(); $i++)
+                        @if ($i == $books->currentPage())
+                            <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $i }}</span>
+                        @else
+                            <a href="{{ $books->url($i) }}"
+                                class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $i }}</a>
+                        @endif
+                    @endfor
+                </div>
+
+                {{-- Botón siguiente --}}
+                @if ($books->hasMorePages())
+                    <a href="{{ $books->nextPageUrl() }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>
+                @else
+                    <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</span>
+                @endif
+            </div>
         </section>
     </main>
 
@@ -370,358 +334,6 @@
             </div>
         </footer>
     </div>
-    {{-- <script>
-        window.addEventListener("load", function() {
-            const urlMap = {
-                "el señor de los anillos": "http://127.0.0.1:8000/logeado/book/1",
-                "la metamorfosis": "http://127.0.0.1:8000/logeado/book/2",
-                "invitacion al viaje y otros cuentos ineditos": "http://127.0.0.1:8000/logeado/book/3",
-                "en agosto nos vemos": "http://127.0.0.1:8000/logeado/book/4",
-                "shogun": "http://127.0.0.1:8000/logeado/book/5",
-                "100 grandes triunfos. épicos partidos en cien años de garra": "http://127.0.0.1:8000/logeado/book/6",
-                "el libro de bill": "http://127.0.0.1:8000/logeado/book/7",
-                "el perfil del lagarto": "http://127.0.0.1:8000/logeado/book/8",
-                "el sistema financiero en el Perú, Historia y Numismática": "http://127.0.0.1:8000/logeado/book/9",
-                "el último dictador": "http://127.0.0.1:8000/logeado/book/10",
-                "el cuervo": "http://127.0.0.1:8000/logeado/book/11",
-                "la guerra de los mundos": "http://127.0.0.1:8000/logeado/book/12",
-                "etereo": "http://127.0.0.1:8000/logeado/book/13",
-                "uzumaki": "http://127.0.0.1:8000/logeado/book/14",
-                "padre rico, padre pobre": "http://127.0.0.1:8000/logeado/book/15",
-                "cronica de una muerte anunciada": "http://127.0.0.1:8000/logeado/book/16",
-                "don quijote de la mancha": "http://127.0.0.1:8000/logeado/book/17",
-                "el regreso del huáscar": "http://127.0.0.1:8000/logeado/book/18",
-                "el padrino": "http://127.0.0.1:8000/logeado/book/19",
-                "la divina comedia": "http://127.0.0.1:8000/logeado/book/20",
-                "la ciudad y los perros": "http://127.0.0.1:8000/logeado/book/21",
-                "plata como cancha": "http://127.0.0.1:8000/logeado/book/22",
-                "historia de la corrupción en el perú": "http://127.0.0.1:8000/logeado/book/23",
-                "las aventuras de robin hood": "http://127.0.0.1:8000/logeado/book/24",
-                "el principito": "http://127.0.0.1:8000/logeado/book/25",
-                // Añade aquí tantos títulos y URLs como necesites
-            };
-    
-            const buscar = document.getElementById('buscar');
-            const resultado = document.getElementById('resultado');
-    
-            function normalizeTitle(title) {
-                return title.trim().toLowerCase();
-            }
-    
-            buscar.addEventListener("keyup", (e) => {
-                if (buscar.value.trim() === "") {
-                    resultado.innerHTML = "";
-                    return;
-                }
-                fetch(`/logeado/buscador`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        texto: buscar.value
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]").content
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var html = "";
-                    if (data.success) {
-                        html += "<ul>";
-                        for (var i in data.data) {
-                            const normalizedTitle = normalizeTitle(data.data[i].title);
-                            console.log("Normalized Title:", normalizedTitle); // Verificar título normalizado
-                            let url = urlMap[normalizedTitle] || "http://127.0.0.1:8000/logeado"; // URL por defecto si no se encuentra
-                            console.log("URL:", url); // Verificar URL
-                            html += "<li><a href='" + url + "'>" + data.data[i].title + "</a></li>";
-                        }
-                        html += "</ul>";
-                    } else {
-                        html += "No existen resultados";
-                    }
-                    resultado.innerHTML = html;
-                })
-                .catch(error => console.error('Error:', error));
-            });
-        });
-    </script> --}}
-
-    {{-- <script>
-        window.addEventListener("load", function() {
-            const urlMap = {
-                "el señor de los anillos": "http://127.0.0.1:8000/logeado/book/1",
-                "título del libro 2": "http://127.0.0.1:8000/logeado/book/2",
-                "título del libro 3": "http://127.0.0.1:8000/logeado/book/3"
-                // Añade aquí tantos títulos y URLs como necesites
-            };
-    
-            const buscar = document.getElementById('buscar');
-            const resultado = document.getElementById('resultado');
-    
-            function normalizeTitle(title) {
-                return title.trim().toLowerCase();
-            }
-    
-            function contieneCaracteresEspeciales(str) {
-                const regex = /[^a-zA-Z0-9\s]/;
-                return regex.test(str);
-            }
-    
-            buscar.addEventListener("keyup", (e) => {
-                if (buscar.value.trim() === "") {
-                    resultado.innerHTML = "";
-                    return;
-                }
-    
-                // Detectar si la tecla presionada es Enter
-                if (e.key === 'Enter') {
-                    if (contieneCaracteresEspeciales(buscar.value) || !(normalizeTitle(buscar.value) in urlMap)) {
-                        // Si se ingresó un carácter especial o el título no está en urlMap, recargar la página
-                        location.reload();
-                        return;
-                    }
-    
-                    fetch(`/logeado/buscador`, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            texto: buscar.value
-                        }),
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-Requested-With": "XMLHttpRequest",
-                            "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]").content
-                        }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        var html = "";
-                        if (data.success) {
-                            html += "<ul>";
-                            let noResult = true;
-                            for (var i in data.data) {
-                                const normalizedTitle = normalizeTitle(data.data[i].title);
-                                console.log("Normalized Title:", normalizedTitle); // Verificar título normalizado
-                                let url = urlMap[normalizedTitle] || "";
-                                if (url) {
-                                    noResult = false;
-                                    console.log("URL:", url); // Verificar URL
-                                    html += "<li><a href='" + url + "'>" + data.data[i].title + "</a></li>";
-                                }
-                            }
-                            html += "</ul>";
-                            
-                            if (noResult) {
-                                location.reload(); // Recargar la página si no se encuentran resultados al presionar Enter
-                            }
-                        } else {
-                            html += "No existen resultados";
-                        }
-                        resultado.innerHTML = html;
-                    })
-                    .catch(error => console.error('Error:', error));
-                }
-            });
-        });
-    </script> --}}
-
-    {{-- <script>
-        window.addEventListener("load", function() {
-            const urlMap = {
-                "el señor de los anillos": "http://127.0.0.1:8000/logeado/book/1",
-                "la metamorfosis": "http://127.0.0.1:8000/logeado/book/2",
-                "invitacion al viaje y otros cuentos ineditos": "http://127.0.0.1:8000/logeado/book/3",
-                "en agosto nos vemos": "http://127.0.0.1:8000/logeado/book/4",
-                "shogun": "http://127.0.0.1:8000/logeado/book/5",
-                "100 grandes triunfos. épicos partidos en cien años de garra": "http://127.0.0.1:8000/logeado/book/6",
-                "el libro de bill": "http://127.0.0.1:8000/logeado/book/7",
-                "el perfil del lagarto": "http://127.0.0.1:800/logeado/book/8",
-                "el sistema financiero en el perú, historia y numismática": "http://127.0.0.1:8000/logeado/book/9",
-                "el último dictador": "http://127.0.0.1:8000/logeado/book/10",
-                "el cuervo": "http://127.0.0.1:8000/logeado/book/11",
-                "la guerra de los mundos": "http://127.0.0.1:8000/logeado/book/12",
-                "etereo": "http://127.0.0.1:8000/logeado/book/13",
-                "uzumaki": "http://127.0.0.1:8000/logeado/book/14",
-                "padre rico, padre pobre": "http://127.0.0.1:8000/logeado/book/15",
-                "cronica de una muerte anunciada": "http://127.0.0.1:8000/logeado/book/16",
-                "don quijote de la mancha": "http://127.0.0.1:8000/logeado/book/17",
-                "el regreso del huáscar": "http://127.0.0.1:8000/logeado/book/18",
-                "el padrino": "http://127.0.0.1:8000/logeado/book/19",
-                "la divina comedia": "http://127.0.0.1:8000/logeado/book/20",
-                "la ciudad y los perros": "http://127.0.0.1:8000/logeado/book/21",
-                "plata como cancha": "http://127.0.0.1:8000/logeado/book/22",
-                "historia de la corrupción en el perú": "http://127.0.0.1:8000/logeado/book/23",
-                "las aventuras de robin hood": "http://127.0.0.1:8000/logeado/book/24",
-                "el principito": "http://127.0.0.1:8000/logeado/book/25"
-                // Añade aquí tantos títulos y URLs como necesites
-            };
-    
-            const buscar = document.getElementById('buscar');
-            const resultado = document.getElementById('resultado');
-    
-            function normalizeTitle(title) {
-                return title.trim().toLowerCase();
-            }
-    
-            function contieneCaracteresEspeciales(str) {
-                const regex = /[^a-zA-Z0-9\s]/;
-                return regex.test(str);
-            }
-    
-            buscar.addEventListener("keyup", (e) => {
-                if (buscar.value.trim() === "") {
-                    resultado.innerHTML = "";
-                    return;
-                }
-    
-                // Hacer la búsqueda al escribir en el campo
-                fetch(`/logeado/buscador`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        texto: buscar.value
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]").content
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var html = "";
-                    if (data.success) {
-                        html += "<ul>";
-                        let noResult = true;
-                        for (var i in data.data) {
-                            const normalizedTitle = normalizeTitle(data.data[i].title);
-                            console.log("Normalized Title:", normalizedTitle); // Verificar título normalizado
-                            let url = urlMap[normalizedTitle] || "";
-                            if (url) {
-                                noResult = false;
-                                console.log("URL:", url); // Verificar URL
-                                html += "<li><a href='" + url + "'>" + data.data[i].title + "</a></li>";
-                            }
-                        }
-                        html += "</ul>";
-                        resultado.innerHTML = html;
-                        
-                        // Si se presiona Enter y no hay resultados válidos, recargar la página
-                        if (e.key === 'Enter' && (noResult || contieneCaracteresEspeciales(buscar.value))) {
-                            location.reload();
-                        }
-                    } else {
-                        html += "No existen resultados";
-                        resultado.innerHTML = html;
-    
-                        // Si se presiona Enter y no hay resultados, recargar la página
-                        if (e.key === 'Enter') {
-                            location.reload();
-                        }
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            });
-        });
-    </script> --}}
-
-
-    {{-- <script>
-        window.addEventListener("load", function() {
-            const urlMap = {
-                "el señor de los anillos": "http://127.0.0.1:8000/logeado/book/1",
-                "la metamorfosis": "http://127.0.0.1:8000/logeado/book/2",
-                "invitacion al viaje y otros cuentos ineditos": "http://127.0.0.1:8000/logeado/book/3",
-                "en agosto nos vemos": "http://127.0.0.1:8000/logeado/book/4",
-                "shogun": "http://127.0.0.1:8000/logeado/book/5",
-                "100 grandes triunfos. épicos partidos en cien años de garra": "http://127.0.0.1:8000/logeado/book/6",
-                "el libro de bill": "http://127.0.0.1:8000/logeado/book/7",
-                "el perfil del lagarto": "http://127.0.0.1:800/logeado/book/8",
-                "el sistema financiero en el perú, historia y numismática": "http://127.0.0.1:8000/logeado/book/9",
-                "el último dictador": "http://127.0.0.1:8000/logeado/book/10",
-                "el cuervo": "http://127.0.0.1:8000/logeado/book/11",
-                "la guerra de los mundos": "http://127.0.0.1:8000/logeado/book/12",
-                "etereo": "http://127.0.0.1:8000/logeado/book/13",
-                "uzumaki": "http://127.0.0.1:8000/logeado/book/14",
-                "padre rico, padre pobre": "http://127.0.0.1:8000/logeado/book/15",
-                "cronica de una muerte anunciada": "http://127.0.0.1:8000/logeado/book/16",
-                "don quijote de la mancha": "http://127.0.0.1:8000/logeado/book/17",
-                "el regreso del huáscar": "http://127.0.0.1:8000/logeado/book/18",
-                "el padrino": "http://127.0.0.1:8000/logeado/book/19",
-                "la divina comedia": "http://127.0.0.1:8000/logeado/book/20",
-                "la ciudad y los perros": "http://127.0.0.1:8000/logeado/book/21",
-                "plata como cancha": "http://127.0.0.1:8000/logeado/book/22",
-                "historia de la corrupción en el perú": "http://127.0.0.1:8000/logeado/book/23",
-                "las aventuras de robin hood": "http://127.0.0.1:8000/logeado/book/24",
-                "el principito": "http://127.0.0.1:8000/logeado/book/25"
-                // Añade aquí tantos títulos y URLs como necesites
-            };
-    
-            const buscar = document.getElementById('buscar');
-            const resultado = document.getElementById('resultado');
-    
-            function normalizeTitle(title) {
-                return title.trim().toLowerCase();
-            }
-    
-            function contieneCaracteresEspeciales(str) {
-                const regex = /[^a-zA-Z0-9\s]/;
-                return regex.test(str);
-            }
-    
-            buscar.addEventListener("keyup", (e) => {
-                if (buscar.value.trim() === "") {
-                    resultado.innerHTML = "";
-                    return;
-                }
-    
-                fetch(`/logeado/buscador`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        texto: buscar.value
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]").content
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var html = "";
-                    if (data.success) {
-                        html += "<ul>";
-                        let noResult = true;
-                        for (var i in data.data) {
-                            const normalizedTitle = normalizeTitle(data.data[i].title);
-                            console.log("Normalized Title:", normalizedTitle);
-                            let url = urlMap[normalizedTitle] || "";
-                            if (url) {
-                                noResult = false;
-                                console.log("URL:", url);
-                                html += "<li><a href='" + url + "'>" + data.data[i].title + "</a></li>";
-                            }
-                        }
-                        html += "</ul>";
-                        resultado.innerHTML = html;
-    
-                        // Si se presiona Enter y no hay resultados válidos, no hacer nada
-                        if (e.key === 'Enter' && (noResult || contieneCaracteresEspeciales(buscar.value))) {
-                            e.preventDefault();
-                        }
-                    } else {
-                        html += "No existen resultados";
-                        resultado.innerHTML = html;
-                        
-                        // Si se presiona Enter y no hay resultados, no hacer nada
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                        }
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            });
-        });
-    </script> --}}
 
     <script>
         window.addEventListener("load", function() {
@@ -753,78 +365,80 @@
                 "el principito": "http://127.0.0.1:8000/logeado/book/25"
                 // Añade aquí tantos títulos y URLs como necesites
             };
-    
+
             const buscar = document.getElementById('buscar');
             const resultado = document.getElementById('resultado');
-    
+
             function normalizeTitle(title) {
                 return title.trim().toLowerCase();
             }
-    
+
             function contieneCaracteresEspeciales(str) {
                 const regex = /[^a-zA-Z0-9\s]/;
                 return regex.test(str);
             }
-    
+
             buscar.addEventListener("keyup", (e) => {
                 if (buscar.value.trim() === "") {
                     resultado.innerHTML = "";
                     return;
                 }
-    
+
                 // Prevenir acción por defecto al presionar Enter si las condiciones no se cumplen
-                if (e.key === 'Enter' && (contieneCaracteresEspeciales(buscar.value) || buscar.value.trim() === "" || !(normalizeTitle(buscar.value) in urlMap))) {
+                if (e.key === 'Enter' && (contieneCaracteresEspeciales(buscar.value) || buscar.value
+                        .trim() === "" || !(normalizeTitle(buscar.value) in urlMap))) {
                     e.preventDefault();
                     return;
                 }
-    
+
                 fetch(`/logeado/buscador`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        texto: buscar.value
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]").content
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var html = "";
-                    if (data.success) {
-                        html += "<ul>";
-                        let noResult = true;
-                        for (var i in data.data) {
-                            const normalizedTitle = normalizeTitle(data.data[i].title);
-                            let url = urlMap[normalizedTitle] || "";
-                            if (url) {
-                                noResult = false;
-                                html += "<li><a href='" + url + "'>" + data.data[i].title + "</a></li>";
+                        method: 'POST',
+                        body: JSON.stringify({
+                            texto: buscar.value
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]")
+                                .content
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        var html = "";
+                        if (data.success) {
+                            html += "<ul>";
+                            let noResult = true;
+                            for (var i in data.data) {
+                                const normalizedTitle = normalizeTitle(data.data[i].title);
+                                let url = urlMap[normalizedTitle] || "";
+                                if (url) {
+                                    noResult = false;
+                                    html += "<li><a href='" + url + "'>" + data.data[i].title +
+                                        "</a></li>";
+                                }
+                            }
+                            html += "</ul>";
+                            resultado.innerHTML = html;
+
+                            // Prevenir acción por defecto si no hay resultados válidos al presionar Enter
+                            if (e.key === 'Enter' && noResult) {
+                                e.preventDefault();
+                            }
+                        } else {
+                            html += "No existen resultados";
+                            resultado.innerHTML = html;
+
+                            // Prevenir acción por defecto si no hay resultados al presionar Enter
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
                             }
                         }
-                        html += "</ul>";
-                        resultado.innerHTML = html;
-    
-                        // Prevenir acción por defecto si no hay resultados válidos al presionar Enter
-                        if (e.key === 'Enter' && noResult) {
-                            e.preventDefault();
-                        }
-                    } else {
-                        html += "No existen resultados";
-                        resultado.innerHTML = html;
-    
-                        // Prevenir acción por defecto si no hay resultados al presionar Enter
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                        }
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                    })
+                    .catch(error => console.error('Error:', error));
             });
         });
     </script>
-    
 </body>
 
 </html>

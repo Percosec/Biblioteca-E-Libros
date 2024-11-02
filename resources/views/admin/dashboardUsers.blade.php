@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CRUD</title>
+    <title>E-Libros</title>
+    <link rel="icon" href="https://images.vexels.com/content/229082/preview/book-circles-logo-82dff4.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -27,7 +31,8 @@
         aria-label="Sidebar">
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
             <a href="{{ route('admin') }}" class="flex items-center ps-2.5 mb-5">
-                <img src="https://images.vexels.com/content/229082/preview/book-circles-logo-82dff4.png" class="h-6 me-3 sm:h-7" alt="logo" />
+                <img src="https://images.vexels.com/content/229082/preview/book-circles-logo-82dff4.png"
+                    class="h-6 me-3 sm:h-7" alt="logo" />
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">E-Libros</span>
             </a>
             <ul class="space-y-2 font-medium">
@@ -58,7 +63,7 @@
                 <li>
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf
-                        <a 
+                        <a
                             class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -87,7 +92,16 @@
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Nombre
+                                Usuario
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Nombres
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Apellidos
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Telefono
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Correo Electronico
@@ -108,8 +122,17 @@
 
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $user->name }}
+                                    {{ $user->username }}
                                 </th>
+                                <td class="px-6 py-4">
+                                    {{ $user->names }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $user->surnames }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $user->phone }}
+                                </td>
                                 <td class="px-6 py-4">
                                     {{ $user->email }}
                                 </td>
@@ -131,6 +154,17 @@
             </div>
         </div>
     </div>
+
+
+    @if (Session::has('success'))
+        <script>
+            Swal.fire({
+                title: "Eliminado",
+                text: "Eliminado correctamente.",
+                icon: "success",
+            });
+        </script>
+    @endif
 </body>
 
 </html>

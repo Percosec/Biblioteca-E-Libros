@@ -122,150 +122,106 @@
             </nav>
         </header>
     </div>
-    <div class="min-h-screen">
-        <main>
-            <div class="container mx-auto px-4  py-8 max-w-screen-xl">
-                <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                    <h1 class="text-2xl font-bold my-4">Carro de Compras</h1>
-                </div>
-                <div class="mt-8">
-                    @if ($cartItems < 1)
-                        <div class="bg-orange-200 px-6 py-4 my-4 rounded-md text-lg flex items-center mx-auto">
-                            <svg viewBox="0 0 24 24" class="text-yellow-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
-                                <path fill="currentColor"
-                                    d="M23.119,20,13.772,2.15h0a2,2,0,0,0-3.543,0L.881,20a2,2,0,0,0,1.772,2.928H21.347A2,2,0,0,0,23.119,20ZM11,8.423a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Zm1.05,11.51h-.028a1.528,1.528,0,0,1-1.522-1.47,1.476,1.476,0,0,1,1.448-1.53h.028A1.527,1.527,0,0,1,13.5,18.4,1.475,1.475,0,0,1,12.05,19.933Z">
-                                </path>
-                            </svg>
-                            <span class="text-yellow-800">
-                                No hay libros agregados al carro.
-                            </span>
-                        </div>
-                    @else
-                        @foreach ($carts as $cart)
-                            <div class="flex flex-col md:flex-row border-b border-gray-400 py-4">
-                                <div class="flex-shrink-0">
-                                    @if ($cart->book->image == null)
-                                        <img src="{{ asset('/images/no-image.jpg') }}" alt="Libro"
-                                            class="w-32 h-52 object-cover">
-                                    @else
-                                        <img src="{{ asset('storage/' . $cart->book->image) }}" alt="Product image"
-                                            class="w-32 h-52 object-cover">
-                                    @endif
-                                </div>
 
-                                <div class="mt-4 md:mt-0 md:ml-6">
-                                    <h2 class="text-lg font-bold">{{ $cart->book->title }}</h2>
-                                    <p class="mt-2 text-gray-600">{{ $cart->book->description }}</p>
-                                    <div class="mt-4 flex items-center">
-                                        <span class="mr-2 text-gray-600">Cantidad:</span>
-                                        <button type="button" class="decrement-button"
-                                            data-id="{{ $cart->id }}"
-                                            class="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5">
-                                            <svg class="w-2.5 h-2.5 text-gray-900" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2" d="M1 1h16" />
-                                            </svg>
-                                        </button>
-                                        <input type="text" id="quantity-{{ $cart->id }}"
-                                            data-precio="{{ $cart->book->price }}" value="{{ $cart->quantity }}"
-                                            class="text-center w-11 border-none" disabled>
-                                        <button type="button" class="increment-button"
-                                            data-id="{{ $cart->id }}"
-                                            class="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5">
-                                            <svg class="w-2.5 h-2.5 text-gray-900" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 18 18">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16" />
-                                            </svg>
-                                        </button>
-                                        <span class="ml-auto font-bold"
-                                            id="precio-{{ $cart->id }}">S/{{ $cart->quantity * $cart->book->price }}</span>
-                                    </div>
+    <div class="dark:bg-gray-900">
+        <div class="w-full max-w-3xl mx-auto p-8">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md border dark:border-gray-700">
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Comprobante de venta</h1>
 
-                                    <form action="{{ route('deleteBookCart', $cart->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 mt-7">Eliminar</button>
-                                    </form>
-                                </div>
+                <!-- Shipping Address -->
+                <form action="{{ route('checkout') }}" method="POST" id="checkoutForm">
+                    @csrf
+                    <div class="mb-6">
+                        <h2 class="text-xl font-semibold text-gray-700 dark:text-white mb-2">Dirección de envio</h2>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="names" class="block text-gray-700 dark:text-white mb-1">Nombres</label>
+                                <input type="text" id="names" name="names"
+                                    class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                                    value="{{ $names }}" disabled>
                             </div>
+                            <div>
+                                <label for="surnames"
+                                    class="block text-gray-700 dark:text-white mb-1">Apellidos</label>
+                                <input type="text" id="surnames" name="surnames"
+                                    class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                                    value="{{ $surnames }}" disabled>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="email" class="block text-gray-700 dark:text-white mb-1">Correo
+                                electronico</label>
+                            <input type="email" id="email" name="email"
+                                class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                                value="{{ $email }}" disabled>
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="direccion" class="block text-gray-700 dark:text-white mb-1">Dirección</label>
+                            <input type="text" id="direccion" name="direccion" value="{{ old('direccion') }}"
+                                class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none">
+                            @error('direccion')
+                                <small class=" text-red-600">
+                                    <strong>{{ $message }}</strong>
+                                </small>
+                            @enderror
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="ciudad" class="block text-gray-700 dark:text-white mb-1">Ciudad</label>
+                            <input type="text" id="ciudad" name="ciudad" value="{{ old('ciudad') }}"
+                                class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none">
+                            @error('ciudad')
+                                <small class=" text-red-600">
+                                    <strong>{{ $message }}</strong>
+                                </small>
+                            @enderror
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <label for="distrito"
+                                    class="block text-gray-700 dark:text-white mb-1">Distrito</label>
+                                <input type="text" id="distrito" name="distrito" value="{{ old('distrito') }}"
+                                    class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none">
+                                @error('distrito')
+                                    <small class=" text-red-600">
+                                        <strong>{{ $message }}</strong>
+                                    </small>
+                                @enderror
+                            </div>
+                            <div>
+                                <label for="postal" class="block text-gray-700 dark:text-white mb-1">Codigo
+                                    postal</label>
+                                <input type="text" id="postal" name="postal" value="{{ old('postal') }}"
+                                    class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none">
+                                @error('postal')
+                                    <small class=" text-red-600">
+                                        <strong>{{ $message }}</strong>
+                                    </small>
+                                @enderror
+                            </div>
+                        </div>
+                        @foreach ($carts as $cart)
+                            <input type="hidden" name="products[{{ $loop->index }}][title]"
+                                value="{{ $cart->book->title }}">
+                            <input type="hidden" name="products[{{ $loop->index }}][total]"
+                                value="{{ $cart->book->price }}" data-precio="{{ $cart->book->price }}">
+                            <input type="hidden" name="products[{{ $loop->index }}][quantity]"
+                                value="{{ $cart->quantity }}" id="quantity-{{ $cart->id }}"
+                                data-precio="{{ $cart->book->price }}">
                         @endforeach
-                    @endif
-                </div>
-                @if ($cartItems > 0)
-                    <div class="flex justify-end items-center mt-8">
-                        <span class="text-gray-600 mr-4">Total:</span>
-                        <span class="text-xl font-bold">S/</span><span class="text-xl font-bold"
-                            id="precioTotal">{{ $cartSubTotal }}</span>
                     </div>
-                    <div class="flex flex-col md:flex-row md:justify-between md:items-center mt-5">
-                        {{-- <form action="{{ route('checkout') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="title" value="{{ $cart->book->title }}">
-                            <input type="hidden" name="total" value="{{ $cartSubTotal }}">
-                            <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-                                type="submit" id="">
-                                Comprar
-                            </button>
-                        </form> --}}
 
-                        {{-- <form action="{{ route('checkout') }}" method="POST">
-                            @csrf
-                            @foreach ($carts as $cart)
-                                <input type="hidden" name="products[{{ $loop->index }}][title]"
-                                    value="{{ $cart->book->title }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][total]"
-                                    value="{{ $cart->book->price }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][quantity]"
-                                    value="{{ $cart->quantity }}">
-                            @endforeach
-                            <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-                                type="submit" id="">
-                                Comprar
-                            </button>
-                        </form> --}}
-
-                        {{-- <form action="{{ route('checkout') }}" method="POST">
-                            @csrf
-                            @foreach ($carts as $cart)
-                                <input type="hidden" name="products[{{ $loop->index }}][title]" value="{{ $cart->book->title }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][total]" value="{{ $cart->book->price }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][quantity]" value="{{ $cart->quantity }}">
-                            @endforeach
-                            <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded" type="submit">
-                                Comprar
-                            </button>
-                        </form> --}}
-                        {{-- 
-                        <form action="{{ route('checkout') }}" method="POST" id="checkoutForm">
-                            @csrf
-                            @foreach ($carts as $cart)
-                                <input type="hidden" name="products[{{ $loop->index }}][title]"
-                                    value="{{ $cart->book->title }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][total]"
-                                    value="{{ $cart->book->price }}" data-precio="{{ $cart->book->price }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][quantity]"
-                                    value="{{ $cart->quantity }}" id="quantity-{{ $cart->id }}"
-                                    data-precio="{{ $cart->book->price }}">
-                            @endforeach
-                            <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
-                                type="submit">
-                                Comprar
-                            </button>
-                        </form> --}}
-                        <a href="{{route('boleta')}}">
-                            <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
-                                Comprar
-                            </button>
-                        </a>
-
+                    <div class="mt-8 flex justify-end">
+                        <button type="submit"
+                            class="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-700 dark:bg-teal-600 dark:text-white dark:hover:bg-teal-900">Realizar
+                            pedido</button>
                     </div>
-                @endif
+                </form>
             </div>
-        </main>
+        </div>
     </div>
 
     <div class="bg-gray-900">
@@ -404,6 +360,7 @@
             </div>
         </footer>
     </div>
+
     <script>
         window.addEventListener("load", function() {
             const urlMap = {
@@ -509,95 +466,6 @@
         });
     </script>
     <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     function actualizarPrecio(cartId, nuevaCantidad, precioUnitario) {
-        //         nuevaCantidad = parseInt(nuevaCantidad);
-        //         precioUnitario = parseFloat(precioUnitario);
-        //         const precioTotal = (nuevaCantidad * precioUnitario).toFixed(2);
-        //         document.getElementById(`precio-${cartId}`).innerText = `S/${precioTotal}`;
-        //         actualizarSubtotal();
-        //         localStorage.setItem(`cantidad-${cartId}`, nuevaCantidad);
-        //         localStorage.setItem(`precio-${cartId}`, precioTotal);
-        //     }
-
-        //     function actualizarSubtotal() {
-        //         let subtotal = 0;
-        //         document.querySelectorAll("[id^='precio-']").forEach(precio => {
-        //             const precioValue = parseFloat(precio.innerText.replace('S/', ''));
-        //             subtotal += precioValue;
-        //         });
-        //         document.getElementById("precioTotal").innerText = subtotal.toFixed(2);
-        //         localStorage.setItem('subtotal', subtotal.toFixed(2));
-        //     }
-
-        //     function cargarDatos() {
-        //         document.querySelectorAll("[id^='quantity-']").forEach(input => {
-        //             const cartId = input.getAttribute("id").split('-')[1];
-        //             const cantidad = localStorage.getItem(`cantidad-${cartId}`);
-        //             if (cantidad) {
-        //                 input.value = cantidad;
-        //                 const precioUnitario = parseFloat(input.getAttribute("data-precio"));
-        //                 actualizarPrecio(cartId, cantidad, precioUnitario);
-        //             }
-        //         });
-        //         const subtotal = localStorage.getItem('subtotal');
-        //         if (subtotal) {
-        //             document.getElementById("precioTotal").innerText = subtotal;
-        //         }
-        //     }
-
-        //     document.querySelectorAll(".increment-button").forEach(button => {
-        //         button.addEventListener("click", function() {
-        //             const cartId = this.getAttribute("data-id");
-        //             const inputCantidad = document.getElementById(`quantity-${cartId}`);
-        //             const cantidadActual = parseInt(inputCantidad.value);
-        //             const precioUnitario = parseFloat(inputCantidad.getAttribute("data-precio"));
-        //             const nuevaCantidad = cantidadActual + 1;
-        //             inputCantidad.value = nuevaCantidad;
-        //             actualizarPrecio(cartId, nuevaCantidad, precioUnitario);
-        //             actualizarCantidadServidor(cartId, nuevaCantidad);
-        //         });
-        //     });
-
-        //     document.querySelectorAll(".decrement-button").forEach(button => {
-        //         button.addEventListener("click", function() {
-        //             const cartId = this.getAttribute("data-id");
-        //             const inputCantidad = document.getElementById(`quantity-${cartId}`);
-        //             const cantidadActual = parseInt(inputCantidad.value);
-        //             const precioUnitario = parseFloat(inputCantidad.getAttribute("data-precio"));
-        //             if (cantidadActual > 1) {
-        //                 const nuevaCantidad = cantidadActual - 1;
-        //                 inputCantidad.value = nuevaCantidad;
-        //                 actualizarPrecio(cartId, nuevaCantidad, precioUnitario);
-        //                 actualizarCantidadServidor(cartId, nuevaCantidad);
-        //             }
-        //         });
-        //     });
-
-        //     function actualizarCantidadServidor(cartId, nuevaCantidad) {
-        //         fetch('/carrito', {
-        //                 method: 'POST',
-        //                 headers: {
-        //                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-        //                         "content"),
-        //                     'Content-Type': 'application/json'
-        //                 },
-        //                 body: JSON.stringify({
-        //                     cart_id: cartId,
-        //                     cantidad: nuevaCantidad
-        //                 })
-        //             })
-        //             .then(response => response.json())
-        //             .then(data => {
-        //                 console.log("Cantidad actualizada en el servidor:", data);
-        //             })
-        //             .catch(error => console.error('Error:', error));
-        //     }
-        //     cargarDatos();
-        //     actualizarSubtotal();
-        // });
-
-
         document.addEventListener("DOMContentLoaded", function() {
             function actualizarPrecio(cartId, nuevaCantidad, precioUnitario) {
                 nuevaCantidad = parseInt(nuevaCantidad);

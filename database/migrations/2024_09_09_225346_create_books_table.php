@@ -16,7 +16,7 @@ return new class extends Migration
             $table->text('title');
             $table->string('author');
             $table->text('description');
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->decimal('price',total:8,places:2);
             $table->timestamps();
         });

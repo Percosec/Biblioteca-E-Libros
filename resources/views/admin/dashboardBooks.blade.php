@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CRUD</title>
+    <link rel="icon" href="https://images.vexels.com/content/229082/preview/book-circles-logo-82dff4.png"
+        type="image/x-icon">
+    <title>E-Libros</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -120,38 +125,71 @@
                         </div>
                         <!-- Modal body -->
                         <div class="p-4 md:p-5">
-                            <form action="{{route('books.create')}}" method="POST" class="space-y-4" >
+                            <form action="{{ route('books.create') }}" method="POST" class="space-y-4"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div>
                                     <label for="title"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                         Titulo</label>
-                                    <input type="text" name="title" id="title"
+                                    <input type="text" name="title" id="title" required
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Titulo del Libro" required />
+                                        placeholder="Titulo del Libro" value="{{ old('title') }}" />
+
+                                    @error('title')
+                                        <small class=" text-red-600">
+                                            <strong>{{ $message }}</strong>
+                                        </small>
+                                    @enderror
                                 </div>
                                 <div>
                                     <label for="author"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Autor</label>
                                     <input type="text" name="author" id="author"
-                                        placeholder="Autor del Libro"
+                                        placeholder="Autor del Libro" required
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        required />
+                                        value="{{ old('author') }}" />
+
+                                    @error('author')
+                                        <small class=" text-red-600">
+                                            <strong>{{ $message }}</strong>
+                                        </small>
+                                    @enderror
                                 </div>
                                 <div>
-                                    <label for="image"
+                                    {{-- <label for="image"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen</label>
                                     <input type="text" name="image" id="image"
                                         placeholder="Pega el link de la imagen"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        required />
+                                        required value="{{ old('image') }}" /> --}}
+                                    <label
+                                        class="block mb-3 text-sm font-medium text-gray-900 dark:text-white">Imagen</label>
+                                    <img src="{{ asset('images/no-image.jpg') }}" alt="imagen" id="imgPreview" class="mb-5">
+                                    <label for="image" class=" bg-slate-200 px-4 py-2 rounded-lg cursor-pointer">
+                                        <i class="fa-solid fa-camera mr-2"></i>
+                                        Agregar imagen
+                                        <input type="file" name="image" id="image" class="hidden"
+                                            accept="image/*" onchange="previewImage(event,'#imgPreview')">
+                                    </label>
+                                    {{-- <input type="text" name="image" id="image"
+                                        placeholder="Pega el link de la imagen"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                        required value="{{ old('image') }}" /> --}}
+
                                 </div>
                                 <div class="col-span-2">
                                     <label for="price"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
-                                    <input type="number" name="price" id="price"
+                                    <input type="number" name="price" id="price" min="0"
+                                        step="0.01"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="S/100.00" required>
+                                        placeholder="S/100.00" required value="{{ old('price') }}">
+                                    @error('price')
+                                        <small class=" text-red-600">
+                                            <strong>{{ $message }}</strong>
+                                        </small>
+                                    @enderror
                                 </div>
                                 <div class="col-span-2">
                                     <label for="description"
@@ -159,9 +197,15 @@
                                         del Libro</label>
                                     <textarea id="description" rows="4"
                                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Escribe la descripcion del libro aqui"></textarea>
+                                        placeholder="Escribe la descripcion del libro aqui" required name="description">{{ old('description') }}</textarea>
+
+                                    @error('description')
+                                        <small class=" text-red-600">
+                                            <strong>{{ $message }}</strong>
+                                        </small>
+                                    @enderror
                                 </div>
-                                <button type="submit"
+                                <button
                                     class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     <i class="fa-solid fa-plus mr-2"></i>
                                     Crear Libro
@@ -212,12 +256,16 @@
                                     {{ $book->description }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <img src="{{ $book->image }}" alt="imagen">
+                                    @if ($book->image == null)
+                                        <img src="{{ asset('images/no-image.jpg') }}" alt="imagen">
+                                    @else
+                                        <img src="{{ asset('storage/' . $book->image) }}" alt="imagen">
+                                    @endif
                                 </td>
                                 <td class="px-6 py-4">
                                     S/{{ $book->price }}
                                 </td>
-                                <td class="flex items-center px-6 py-4">
+                                <td class="flex items-center px-6 py-20">
                                     <a href="{{ route('books.edit', $book->id) }}">
                                         <button
                                             class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
@@ -236,9 +284,54 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{$books->links()}}
             </div>
         </div>
     </div>
+
+    @if (Session::has('success'))
+        <script>
+            Swal.fire({
+                title: "Eliminado",
+                text: "Eliminado correctamente.",
+                icon: "success",
+            });
+        </script>
+    @endif
+
+    @if (Session::has('createSuccess'))
+        <script>
+            Swal.fire({
+                title: "Creado",
+                text: "Creado correctamente.",
+                icon: "success",
+            });
+        </script>
+    @endif
+
+    <script>
+        function previewImage(event, querySelector) {
+
+            //Recuperamos el input que desencadeno la acción
+            const input = event.target;
+
+            //Recuperamos la etiqueta img donde cargaremos la imagen
+            $imgPreview = document.querySelector(querySelector);
+
+            // Verificamos si existe una imagen seleccionada
+            if (!input.files.length) return
+
+            //Recuperamos el archivo subido
+            file = input.files[0];
+
+            //Creamos la url
+            objectURL = URL.createObjectURL(file);
+
+            //Modificamos el atributo src de la etiqueta img
+            $imgPreview.src = objectURL;
+
+        }
+    </script>
 </body>
 
 </html>

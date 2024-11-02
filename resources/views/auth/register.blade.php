@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CRUD</title>
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    <link rel="icon" href="https://images.vexels.com/content/229082/preview/book-circles-logo-82dff4.png"
+        type="image/x-icon">
+    <title>E-Libros</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -14,8 +16,9 @@
 
 <body>
 
-    <a href="{{route('auth.login')}}" class=" absolute left-5 mt-5">
-        <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-3 me-2  focus:outline-none">
+    <a href="{{ route('auth.login') }}" class=" absolute left-5 mt-5">
+        <button type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-3 me-2  focus:outline-none">
             <i class="fa-solid fa-arrow-left"></i>
             <span class=" font-bold">Regresar</span>
         </button>
@@ -39,14 +42,68 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                <form method="POST" action="{{route('auth.store')}}">
+                <form method="POST" action="{{ route('auth.store') }}">
                     @csrf
                     <div>
-                        <label for="email" class="block text-sm font-medium leading-5  text-gray-700">Nombre de Usuario</label>
+                        <label for="username" class="block text-sm font-medium leading-5  text-gray-700">Usuario</label>
                         <div class="mt-1 relative rounded-md shadow-sm">
-                            <input id="name" name="name" placeholder="adrian gallo" type="text" required=""
+                            <input id="username" name="username" placeholder="adrian01" type="text"
+                                value="{{ old('username') }}"
                                 class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         </div>
+                        @error('username')
+                            <small class=" text-red-600">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="names" class="block text-sm font-medium leading-5 text-gray-700">
+                            Nombres
+                        </label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input id="names" name="names" placeholder="adrian esteban" type="text"
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                value="{{ old('names') }}">
+                        </div>
+                        @error('names')
+                            <small class=" text-red-600">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="surnames" class="block text-sm font-medium leading-5 text-gray-700">
+                            Apellidos
+                        </label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input id="surnames" name="surnames" placeholder="gallo quispe" type="text"
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                value="{{ old('surnames') }}">
+                        </div>
+                        @error('surnames')
+                            <small class=" text-red-600">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
+                    </div>
+
+                    <div class="mt-6">
+                        <label for="phone" class="block text-sm font-medium leading-5 text-gray-700">
+                            Numero Telefonico
+                        </label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <input id="phone" name="phone" placeholder="95874631" type="tel"
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                value="{{ old('phone') }}">
+                        </div>
+                        @error('phone')
+                            <small class=" text-red-600">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
                     </div>
 
                     <div class="mt-6">
@@ -55,9 +112,14 @@
                         </label>
                         <div class="mt-1 relative rounded-md shadow-sm">
                             <input id="email" name="email" placeholder="adriangallo@example.com" type="email"
-                                required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                value="{{ old('email') }}">
                         </div>
+                        @error('email')
+                            <small class=" text-red-600">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
                     </div>
 
                     <div class="mt-6">
@@ -65,9 +127,16 @@
                             Contraseña
                         </label>
                         <div class="mt-1 rounded-md shadow-sm">
-                            <input id="password" name="password" type="password" required placeholder="**********" minlength="4"
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <input id="password" name="password" type="password" placeholder="**********"
+                                minlength="4"
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                value="{{ old('password') }}">
                         </div>
+                        @error('password')
+                            <small class=" text-red-600">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
                     </div>
 
                     <div class="mt-6">
@@ -75,10 +144,16 @@
                             Confirmar contraseña
                         </label>
                         <div class="mt-1 rounded-md shadow-sm">
-                            <input id="password_confirmation" name="password_confirmation" type="password" placeholder="**********" minlength="4"
-                                required
-                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            <input id="password_confirmation" name="password_confirmation" type="password"
+                                placeholder="**********" minlength="4"
+                                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                value="{{ old('password_confirmation') }}">
                         </div>
+                        @error('password_confirmation')
+                            <small class=" text-red-600">
+                                <strong>{{ $message }}</strong>
+                            </small>
+                        @enderror
                     </div>
 
                     <div class="mt-6">

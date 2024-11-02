@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="https://images.vexels.com/content/229082/preview/book-circles-logo-82dff4.png"
         type="image/x-icon">
-    <title>E-Libros</title>
 
+    <title>E-Libros</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
@@ -77,13 +78,13 @@
                         <ul
                             class="flex flex-col p-4 md:p-0 mt-4 font-medium border rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  bg-gray-900 border-gray-700 ">
                             <li>
-                                <a href="#"
-                                    class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 "
-                                    aria-current="page">Inicio</a>
+                                <a href="{{ route('home.index') }}"
+                                    class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400  md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Inicio</a>
                             </li>
                             <li>
                                 <a href="{{ route('books') }}"
-                                    class="block py-2 px-3 md:p-0  rounded hover:bg-gray-400  md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Libros</a>
+                                    class="block py-2 px-3 md:p-0 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 "
+                                    aria-current="page">Libros</a>
                             </li>
                             <li>
                                 <a href="#"
@@ -96,76 +97,12 @@
             </nav>
         </header>
     </div>
+
     <div>
         <main>
-
-            <div class="max-w-7xl mx-auto mt-5 px-3">
-
-                <div id="default-carousel" class="relative rounded-lg overflow-hidden shadow-lg" data-carousel="static">
-                    <!-- Carousel wrapper -->
-                    <div class="relative h-80 md:h-96" data-carousel-inner>
-                        <!-- Item 1 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_banner-principal_infantil_03-09.jpg"
-                                class="object-cover w-full h-full" alt="Slide 1">
-                        </div>
-                        <!-- Item 2 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_home_banner-principal_mangas_03-09.jpg"
-                                class="object-cover w-full h-full" alt="Slide 2">
-                        </div>
-                        <!-- Item 3 -->
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd_banner-principal_HP_03-09.jpg"
-                                class="object-cover w-full h-full" alt="Slide 3">
-                        </div>
-                        <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                            <img src="https://www.crisol.com.pe/media/wysiwyg/static/bnd__banner-principal_preventa.jpg"
-                                class="object-cover w-full h-full" alt="Slide 3">
-                        </div>
-                    </div>
-                    <!-- Slider indicators -->
-                    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-                            data-carousel-slide-to="0"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                            aria-label="Slide 2" data-carousel-slide-to="1"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                            aria-label="Slide 3" data-carousel-slide-to="2"></button>
-                        <button type="button" class="w-3 h-3 rounded-full" aria-current="false"
-                            aria-label="Slide 4" data-carousel-slide-to="3"></button>
-                    </div>
-                    <!-- Slider controls -->
-                    <button type="button"
-                        class="flex absolute top-1/2 left-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition"
-                        data-carousel-prev>
-                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 19l-7-7 7-7">
-                            </path>
-                        </svg>
-                    </button>
-                    <button type="button"
-                        class="flex absolute top-1/2 right-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition"
-                        data-carousel-next>
-                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="max-w-screen-xl mx-auto mt-5 px-3">
-                <h1 class=" text-2xl text-blue-800 font-[500]">Los más destacados</h1>
-                <hr class=" border-y-blue-900 border-y-4 rounded-full">
-            </div>
-
             <section id="Projects"
-                class="w-fit mx-auto grid grid-cols-1 breakpoint:grid-cols-4 breakpoint2:grid-cols-3 breakpoint3:grid-cols-2 breakpoint3:gap-x-16 justify-items-center justify-center gap-y-20  breakpoint:gap-x-8 mt-10 mb-5">
+                class="max-w-screen-xl w-fit mx-auto grid grid-cols-1 breakpoint:grid-cols-4 breakpoint2:grid-cols-3 breakpoint3:grid-cols-2 breakpoint3:gap-x-16 justify-items-center justify-center gap-y-20  breakpoint:gap-x-1 mt-10 mb-5">
+                {{-- breakpoint:gap-x-8 --}}
 
                 @foreach ($books as $book)
                     <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
@@ -194,10 +131,41 @@
                         </div>
                     </div>
                 @endforeach
+                <div class="flex justify-between items-center mt-4">
+                    {{-- Botón anterior --}}
+                    @if ($books->onFirstPage())
+                        <span
+                            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</span>
+                    @else
+                        <a href="{{ $books->previousPageUrl() }}"
+                            class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>
+                    @endif
+
+                    {{-- Números de página --}}
+                    <div class="flex space-x-2">
+                        @for ($i = 1; $i <= $books->lastPage(); $i++)
+                            @if ($i == $books->currentPage())
+                                <span
+                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $i }}</span>
+                            @else
+                                <a href="{{ $books->url($i) }}"
+                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $i }}</a>
+                            @endif
+                        @endfor
+                    </div>
+
+                    {{-- Botón siguiente --}}
+                    @if ($books->hasMorePages())
+                        <a href="{{ $books->nextPageUrl() }}"
+                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>
+                    @else
+                        <span
+                            class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</span>
+                    @endif
+                </div>
             </section>
         </main>
     </div>
-
 
     <div class="bg-gray-900">
         <footer>
@@ -321,7 +289,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="bg-indigo-700">
                 <div class="bg-indigo-700 py-4 text-gray-100 max-w-screen-xl mx-auto">
                     <div class="container mx-auto px-4">
@@ -335,105 +302,50 @@
             </div>
         </footer>
     </div>
-    <script src="{{ asset('search/js/search.js') }}" type="module"></script>
     {{-- <script>
         window.addEventListener("load", function() {
             const urlMap = {
-                "el señor de los anillos": "http://127.0.0.1:8000/book/1",
-                "la metamorfosis": "http://127.0.0.1:8000/book/2",
-                "invitacion al viaje y otros cuentos ineditos": "http://127.0.0.1:8000/logeado/book/3",
-                "en agosto nos vemos": "http://127.0.0.1:8000/logeado/book/4",
-                "shogun": "http://127.0.0.1:8000/logeado/book/5",
-                "100 grandes triunfos. épicos partidos en cien años de garra": "http://127.0.0.1:8000/logeado/book/6",
-                "el libro de bill": "http://127.0.0.1:8000/logeado/book/7",
-                "el perfil del lagarto": "http://127.0.0.1:800/logeado/book/8",
-                "el sistema financiero en el perú, historia y numismática": "http://127.0.0.1:8000/logeado/book/9",
-                "el último dictador": "http://127.0.0.1:8000/logeado/book/10",
-                "el cuervo": "http://127.0.0.1:8000/logeado/book/11",
-                "la guerra de los mundos": "http://127.0.0.1:8000/logeado/book/12",
-                "etereo": "http://127.0.0.1:8000/logeado/book/13",
-                "uzumaki": "http://127.0.0.1:8000/logeado/book/14",
-                "padre rico, padre pobre": "http://127.0.0.1:8000/logeado/book/15",
-                "cronica de una muerte anunciada": "http://127.0.0.1:8000/logeado/book/16",
-                "don quijote de la mancha": "http://127.0.0.1:8000/logeado/book/17",
-                "el regreso del huáscar": "http://127.0.0.1:8000/logeado/book/18",
-                "el padrino": "http://127.0.0.1:8000/logeado/book/19",
-                "la divina comedia": "http://127.0.0.1:8000/logeado/book/20",
-                "la ciudad y los perros": "http://127.0.0.1:8000/logeado/book/21",
-                "plata como cancha": "http://127.0.0.1:8000/logeado/book/22",
-                "historia de la corrupción en el perú": "http://127.0.0.1:8000/logeado/book/23",
-                "las aventuras de robin hood": "http://127.0.0.1:8000/logeado/book/24",
-                "el principito": "http://127.0.0.1:8000/logeado/book/25"
+                "El Señor De Los Anillos": "http://127.0.0.1:8000/logeado/book/1",
+                "Título del Libro 2": "/logeado/book/2",
+                "Título del Libro 3": "/logeado/book/3"
                 // Añade aquí tantos títulos y URLs como necesites
             };
-    
-            const buscar = document.getElementById('buscar');
-            const resultado = document.getElementById('resultado');
-    
-            function normalizeTitle(title) {
-                return title.trim().toLowerCase();
-            }
-    
-            function contieneCaracteresEspeciales(str) {
-                const regex = /[^a-zA-Z0-9\s]/;
-                return regex.test(str);
-            }
-    
+
             buscar.addEventListener("keyup", (e) => {
                 if (buscar.value.trim() === "") {
                     resultado.innerHTML = "";
                     return;
                 }
-    
-                // Prevenir acción por defecto al presionar Enter si las condiciones no se cumplen
-                if (e.key === 'Enter' && (contieneCaracteresEspeciales(buscar.value) || buscar.value.trim() === "" || !(normalizeTitle(buscar.value) in urlMap))) {
-                    e.preventDefault();
-                    return;
-                }
-    
                 fetch(`/buscador`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        texto: buscar.value
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]").content
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var html = "";
-                    if (data.success) {
-                        html += "<ul>";
-                        let noResult = true;
-                        for (var i in data.data) {
-                            const normalizedTitle = normalizeTitle(data.data[i].title);
-                            let url = urlMap[normalizedTitle] || "";
-                            if (url) {
-                                noResult = false;
-                                html += "<li><a href='" + url + "'>" + data.data[i].title + "</a></li>";
+                        method: 'POST',
+                        body: JSON.stringify({
+                            texto: buscar.value
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-Token": document.head.querySelector("[name~=csrf-token][content]")
+                                .content
+                        }
+                    })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        var html = ""
+                        if (data.success) {
+                            html += "<ul>"
+                            for (var i in data.data) {
+                                let url = urlMap[data.data[i].title] ||
+                                    "http://127.0.0.1:8000/login"; // Default URL if not found
+                                html += "<li><a href='" + url + "'>" + data.data[i].title + "</a></li>"
                             }
+                            html += "</ul>"
+                        } else {
+                            html += "No existen resultados"
                         }
-                        html += "</ul>";
                         resultado.innerHTML = html;
-    
-                        // Prevenir acción por defecto si no hay resultados válidos al presionar Enter
-                        if (e.key === 'Enter' && noResult) {
-                            e.preventDefault();
-                        }
-                    } else {
-                        html += "No existen resultados";
-                        resultado.innerHTML = html;
-    
-                        // Prevenir acción por defecto si no hay resultados al presionar Enter
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                        }
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                    })
             });
         });
     </script> --}}

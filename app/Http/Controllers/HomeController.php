@@ -9,7 +9,8 @@ class HomeController extends Controller
 {
     public function index(){
 
-        $books = Book::all();
+        $books = Book::where('id','<=',8)->get();
+
         return view('welcome',compact('books'));
     }
 }
