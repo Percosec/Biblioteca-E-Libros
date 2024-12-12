@@ -192,6 +192,13 @@
                                     @enderror
                                 </div>
                                 <div class="col-span-2">
+                                    <label for="price"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
+                                    <input type="number" name="stock" id="stock" min="1"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="100" required value="{{ old('stock') }}">
+                                </div>
+                                <div class="col-span-2">
                                     <label for="description"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción
                                         del Libro</label>
@@ -235,6 +242,9 @@
                             <th scope="col" class="px-6 py-3">
                                 Precio
                             </th>
+                            <th scope="col" class="px-6 py-3">
+                                Stock
+                            </th>
                             <th scope="col" class="px-6 py-3 text-center">
                                 Accion
                             </th>
@@ -265,6 +275,9 @@
                                 <td class="px-6 py-4">
                                     S/{{ $book->price }}
                                 </td>
+                                <td class="px-6 py-4">
+                                    {{ $book->stock }} unidades
+                                </td>
                                 <td class="flex items-center px-6 py-20">
                                     <a href="{{ route('books.edit', $book->id) }}">
                                         <button
@@ -284,7 +297,33 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{$books->links()}}
+                <div class="flex justify-between items-center mt-4">
+                    {{-- Botón anterior --}}
+                    @if ($books->onFirstPage())
+                        <span class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</span>
+                    @else
+                        <a href="{{ $books->previousPageUrl() }}" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Anterior</a>
+                    @endif
+    
+                    {{-- Números de página --}}
+                    <div class="flex space-x-2">
+                        @for ($i = 1; $i <= $books->lastPage(); $i++)
+                            @if ($i == $books->currentPage())
+                                <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $i }}</span>
+                            @else
+                                <a href="{{ $books->url($i) }}"
+                                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $i }}</a>
+                            @endif
+                        @endfor
+                    </div>
+    
+                    {{-- Botón siguiente --}}
+                    @if ($books->hasMorePages())
+                        <a href="{{ $books->nextPageUrl() }}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</a>
+                    @else
+                        <span class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Siguiente</span>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

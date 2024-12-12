@@ -76,7 +76,15 @@
             </label>
             <input name="price"
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="price" type="number" placeholder="S/100.00" required value="{{ $book->price }}">
+                id="price" type="number" placeholder="S/100.00" required value="{{ $book->price }}" step="0.01">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="stock">
+                Stock
+            </label>
+            <input name="stock"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="stock" type="number" placeholder="100" required value="{{ $book->stock }}">
         </div>
         <div class="mb-4">
             <label class="block text-gray-700 font-bold mb-2" for="description">

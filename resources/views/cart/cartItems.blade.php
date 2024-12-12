@@ -168,8 +168,11 @@
                                             </svg>
                                         </button>
                                         <input type="text" id="quantity-{{ $cart->id }}"
-                                            data-precio="{{ $cart->book->price }}" value="{{ $cart->quantity }}"
-                                            class="text-center w-11 border-none" disabled>
+                                            data-precio="{{ $cart->book->price }}"
+                                             max="{{ $cart->book->stock }}"
+                                        value="{{ $cart->quantity }}"
+                                        class="text-center w-11 border-none"
+                                        readonly>
                                         <button type="button" class="increment-button"
                                             data-id="{{ $cart->id }}"
                                             class="flex-shrink-0 bg-gray-100 hover:bg-gray-200 inline-flex items-center justify-center border border-gray-300 rounded-md h-5 w-5">
@@ -193,6 +196,7 @@
                                 </div>
                             </div>
                         @endforeach
+
                     @endif
                 </div>
                 @if ($cartItems > 0)
@@ -256,7 +260,7 @@
                                 Comprar
                             </button>
                         </form> --}}
-                        <a href="{{route('boleta')}}">
+                        <a href="{{ route('boleta') }}">
                             <button class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
                                 Comprar
                             </button>
@@ -598,6 +602,97 @@
         // });
 
 
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     function actualizarPrecio(cartId, nuevaCantidad, precioUnitario) {
+        //         nuevaCantidad = parseInt(nuevaCantidad);
+        //         precioUnitario = parseFloat(precioUnitario);
+        //         const precioTotal = (nuevaCantidad * precioUnitario).toFixed(2);
+        //         document.getElementById(`precio-${cartId}`).innerText = `S/${precioTotal}`;
+        //         document.getElementById(`quantity-${cartId}`).value = nuevaCantidad; // Actualiza el campo oculto
+        //         actualizarSubtotal();
+        //         localStorage.setItem(`cantidad-${cartId}`, nuevaCantidad);
+        //         localStorage.setItem(`precio-${cartId}`, precioTotal);
+        //     }
+
+        //     function actualizarSubtotal() {
+        //         let subtotal = 0;
+        //         document.querySelectorAll("[id^='precio-']").forEach(precio => {
+        //             const precioValue = parseFloat(precio.innerText.replace('S/', ''));
+        //             subtotal += precioValue;
+        //         });
+        //         document.getElementById("precioTotal").innerText = subtotal.toFixed(2);
+        //         localStorage.setItem('subtotal', subtotal.toFixed(2));
+        //     }
+
+        //     function cargarDatos() {
+        //         document.querySelectorAll("[id^='quantity-']").forEach(input => {
+        //             const cartId = input.getAttribute("id").split('-')[1];
+        //             const cantidad = localStorage.getItem(`cantidad-${cartId}`);
+        //             if (cantidad) {
+        //                 input.value = cantidad;
+        //                 const precioUnitario = parseFloat(input.getAttribute("data-precio"));
+        //                 actualizarPrecio(cartId, cantidad, precioUnitario);
+        //             }
+        //         });
+        //         const subtotal = localStorage.getItem('subtotal');
+        //         if (subtotal) {
+        //             document.getElementById("precioTotal").innerText = subtotal;
+        //         }
+        //     }
+
+        //     document.querySelectorAll(".increment-button").forEach(button => {
+        //         button.addEventListener("click", function() {
+        //             const cartId = this.getAttribute("data-id");
+        //             const inputCantidad = document.getElementById(`quantity-${cartId}`);
+        //             const cantidadActual = parseInt(inputCantidad.value);
+        //             const precioUnitario = parseFloat(inputCantidad.getAttribute("data-precio"));
+        //             const nuevaCantidad = cantidadActual + 1;
+        //             inputCantidad.value = nuevaCantidad;
+        //             actualizarPrecio(cartId, nuevaCantidad, precioUnitario);
+        //             actualizarCantidadServidor(cartId, nuevaCantidad);
+        //         });
+        //     });
+
+        //     document.querySelectorAll(".decrement-button").forEach(button => {
+        //         button.addEventListener("click", function() {
+        //             const cartId = this.getAttribute("data-id");
+        //             const inputCantidad = document.getElementById(`quantity-${cartId}`);
+        //             const cantidadActual = parseInt(inputCantidad.value);
+        //             const precioUnitario = parseFloat(inputCantidad.getAttribute("data-precio"));
+        //             if (cantidadActual > 1) {
+        //                 const nuevaCantidad = cantidadActual - 1;
+        //                 inputCantidad.value = nuevaCantidad;
+        //                 actualizarPrecio(cartId, nuevaCantidad, precioUnitario);
+        //                 actualizarCantidadServidor(cartId, nuevaCantidad);
+        //             }
+        //         });
+        //     });
+
+        //     function actualizarCantidadServidor(cartId, nuevaCantidad) {
+        //         fetch('/carrito', {
+        //                 method: 'POST',
+        //                 headers: {
+        //                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+        //                         "content"),
+        //                     'Content-Type': 'application/json'
+        //                 },
+        //                 body: JSON.stringify({
+        //                     cart_id: cartId,
+        //                     cantidad: nuevaCantidad
+        //                 })
+        //             })
+        //             .then(response => response.json())
+        //             .then(data => {
+        //                 console.log("Cantidad actualizada en el servidor:", data);
+        //             })
+        //             .catch(error => console.error('Error:', error));
+        //     }
+
+        //     cargarDatos();
+        //     actualizarSubtotal();
+        // });
+
+        //ULTIMA VERSION
         document.addEventListener("DOMContentLoaded", function() {
             function actualizarPrecio(cartId, nuevaCantidad, precioUnitario) {
                 nuevaCantidad = parseInt(nuevaCantidad);
@@ -645,7 +740,7 @@
                     const nuevaCantidad = cantidadActual + 1;
                     inputCantidad.value = nuevaCantidad;
                     actualizarPrecio(cartId, nuevaCantidad, precioUnitario);
-                    actualizarCantidadServidor(cartId, nuevaCantidad);
+                    actualizarCantidadServidor(cartId, nuevaCantidad, 'increase');
                 });
             });
 
@@ -659,13 +754,13 @@
                         const nuevaCantidad = cantidadActual - 1;
                         inputCantidad.value = nuevaCantidad;
                         actualizarPrecio(cartId, nuevaCantidad, precioUnitario);
-                        actualizarCantidadServidor(cartId, nuevaCantidad);
+                        actualizarCantidadServidor(cartId, nuevaCantidad, 'decrease');
                     }
                 });
             });
 
-            function actualizarCantidadServidor(cartId, nuevaCantidad) {
-                fetch('/carrito', {
+            function actualizarCantidadServidor(cartId, nuevaCantidad, action) {
+                fetch('/logeado/carrito', {
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
@@ -674,7 +769,8 @@
                         },
                         body: JSON.stringify({
                             cart_id: cartId,
-                            cantidad: nuevaCantidad
+                            cantidad: nuevaCantidad,
+                            action: action // Añadimos la acción para saber si es incremento o decremento
                         })
                     })
                     .then(response => response.json())
@@ -687,6 +783,10 @@
             cargarDatos();
             actualizarSubtotal();
         });
+
+
+
+
     </script>
 </body>
 

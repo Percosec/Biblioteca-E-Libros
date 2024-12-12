@@ -28,9 +28,28 @@ class CartController extends Controller
         return view('cart.cartItems', ['carts' => $cart, 'username' => $user->username, 'email' => $user->email, 'cartItems' => $cartItems, "cartSubTotal" => $cartSubTotal]);
     }
 
+    // public function addCart(Request $request)
+    // {
+
+    //     $user = Auth::user();
+    //     $book = Book::find($request->id);
+
+    //     if (Cart::where('book_id', $book->id)->exists()) {
+    //         return redirect()->route('auth.logeado');
+    //     }
+
+    //     Cart::create([
+    //         'user_id' => $user->id,
+    //         'book_id' => $book->id,
+    //     ]);
+
+
+
+    //     return redirect()->route('showcart');
+    // }
+
     public function addCart(Request $request)
     {
-
         $user = Auth::user();
         $book = Book::find($request->id);
 
@@ -38,24 +57,85 @@ class CartController extends Controller
             return redirect()->route('auth.logeado');
         }
 
-        Cart::create([
-            'user_id' => $user->id,
-            'book_id' => $book->id,
-        ]);
+        if ($book->stock > 0) {
+            // Disminuye el stock en 1
+            $book->stock -= 1;
+            $book->save();
 
+            Cart::create([
+                'user_id' => $user->id,
+                'book_id' => $book->id,
+            ]);
 
-
-        return redirect()->route('showcart');
+            return redirect()->route('showcart')->with('success', 'Libro añadido al carrito y stock actualizado.');
+        } else {
+            return redirect()->route('auth.logeado')->with('error', 'Libro fuera de stock.');
+        }
     }
 
 
+
+
+
+    // public function deleteBookCart($id)
+    // {
+    //     $cart = Cart::find($id);
+    //     $cart->delete();
+
+    //     return redirect()->route('showcart');
+    // }
+
     public function deleteBookCart($id)
     {
-
         $cart = Cart::find($id);
-        $cart->delete();
 
-        return redirect()->route('showcart');
+        if ($cart) {
+            // Encuentra el libro por ID
+            $book = Book::find($cart->book_id);
+
+            // Incrementa el stock en la cantidad del carrito
+            $book->stock += $cart->quantity;
+            $book->save();
+
+            // Elimina el artículo del carrito
+            $cart->delete();
+
+            return redirect()->route('showcart')->with('success', 'Libro eliminado del carrito y stock actualizado.');
+        } else {
+            return redirect()->route('showcart')->with('error', 'El libro no se encontró en el carrito.');
+        }
+    }
+
+
+
+    public function updateQuantity(Request $request)
+    {
+        $cartItem = Cart::find($request->cart_id);
+        $book = Book::find($cartItem->book_id);
+
+        if ($request->action === 'increase') {
+            if ($book->stock > 0) {
+                $cartItem->quantity += 1;
+                $cartItem->save();
+
+                $book->stock -= 1;
+                $book->save();
+            } else {
+                return response()->json(['success' => false, 'message' => 'Libro fuera de stock.']);
+            }
+        } elseif ($request->action === 'decrease') {
+            if ($cartItem->quantity > 1) {
+                $cartItem->quantity -= 1;
+                $cartItem->save();
+
+                $book->stock += 1;
+                $book->save();
+            } else {
+                return response()->json(['success' => false, 'message' => 'La cantidad no puede ser menor a 1.']);
+            }
+        }
+
+        return response()->json(['success' => true, 'quantity' => $cartItem->quantity]);
     }
 
 
@@ -137,16 +217,23 @@ class CartController extends Controller
             $cartSubTotal += $item->book->price;
         }
 
-        return view('cart.pdf', ['names' => $user->names, 
-        'surnames' => $user->surnames, 
-        'email' => $user->email, 
-        'carts' => $cart, 
-        'cartSubTotal' => $cartSubTotal, 
-        'carts' => $cart, 'direccion' => $direccion, 'ciudad' => $ciudad,'distrito'=>$distrito,'postal'=>$postal]);
+        return view('cart.pdf', [
+            'names' => $user->names,
+            'surnames' => $user->surnames,
+            'email' => $user->email,
+            'carts' => $cart,
+            'cartSubTotal' => $cartSubTotal,
+            'carts' => $cart,
+            'direccion' => $direccion,
+            'ciudad' => $ciudad,
+            'distrito' => $distrito,
+            'postal' => $postal
+        ]);
     }
 
 
-    public function pdf($direccion, $ciudad, $distrito, $postal){
+    public function pdf($direccion, $ciudad, $distrito, $postal)
+    {
         $cartSubTotal = 0.0;
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->with('book')->get();
@@ -156,13 +243,29 @@ class CartController extends Controller
         }
 
 
-        $pdf = Pdf::loadView('cart.reportePdf',['names' => $user->names, 
-        'surnames' => $user->surnames, 
-        'email' => $user->email, 
-        'carts' => $cart, 
-        'cartSubTotal' => $cartSubTotal, 
-        'carts' => $cart, 'direccion' => $direccion, 'ciudad' => $ciudad,'distrito'=>$distrito,'postal'=>$postal]);
+        $pdf = Pdf::loadView('cart.reportePdf', [
+            'names' => $user->names,
+            'surnames' => $user->surnames,
+            'email' => $user->email,
+            'carts' => $cart,
+            'cartSubTotal' => $cartSubTotal,
+            'carts' => $cart,
+            'direccion' => $direccion,
+            'ciudad' => $ciudad,
+            'distrito' => $distrito,
+            'postal' => $postal
+        ]);
 
         return $pdf->stream('reporte_libros.pdf');
+    }
+
+    public function deleteCart()
+    {
+        // Cart::where('user_id', Auth::user()->id)->delete();
+        $user = Auth::user();
+
+        // Eliminar todos los items del carrito del usuario autenticado
+        Cart::where('user_id', $user->id)->delete();
+        return redirect()->route('showcart');
     }
 }

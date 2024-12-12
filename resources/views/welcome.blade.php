@@ -254,7 +254,7 @@
                                 <li><a href="#" class="hover:text-blue-400">Whatsapp</a>
                                 </li>
                                 <li><a href="#" class="hover:text-blue-400">Lun a Sáb de 8am a 8pm</a></li>
-                                <li><a href="#" class="hover:text-blue-400">atencion@elibros.com.pe</a></li>
+                                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=atencione.libros247@gmail.com" target="_blank" class="hover:text-blue-400">atencione.libros247@gmail.com</a></li>
                             </ul>
                         </div>
                         <div class="px-4 my-4 w-full sm:w-auto xl:w-1/5">

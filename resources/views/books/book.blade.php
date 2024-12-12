@@ -155,6 +155,10 @@
                             <span class="font-bold text-gray-700 dark:text-gray-300">Precio:</span>
                             <span class="text-gray-600 dark:text-gray-300">S/{{ $book->price }}</span>
                         </div>
+                        <div class="mr-4">
+                            <span class="font-bold text-gray-700 dark:text-gray-300">Stock:</span>
+                            <span class="text-gray-600 dark:text-gray-300">{{ $book->stock }}</span>
+                        </div>
                     </div>
                     <div>
                         <span class="font-bold text-gray-700 dark:text-gray-300">Descripcion:</span>

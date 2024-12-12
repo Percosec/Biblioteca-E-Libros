@@ -148,7 +148,10 @@
                     <div class="px-4 py-3 w-72">
                         <p class="text-lg  text-gray-400 truncate block capitalize">{{ $book->author }}</p>
                         <h1 class="text-lg font-bold text-black truncate block capitalize">{{ $book->title }}</h1>
-                        <p class="text-lg font-semibold text-black cursor-auto my-3">S/{{ $book->price }}</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-lg font-semibold text-black cursor-auto my-3">S/{{ $book->price }}</p>
+                            <p class="text-lg font-semibold text-red-600 cursor-auto my-3">Stock:{{ $book->stock }}</p>
+                        </div>
                         <div class="flex items-center">
                             <a href="{{ route('showBooks', $book->id) }}">
                                 <button

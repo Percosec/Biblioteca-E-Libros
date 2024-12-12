@@ -17,25 +17,11 @@ class Book extends Model
         'description',
         'image',
         'price',
+        'stock',
     ];
 
     public function carts()
     {
         return $this->hasMany(Cart::class, 'book_id', 'id');
     }
-
-    // protected function getImageUrl(): Attribute {
-    //     return new Attribute(
-    //         get: function () {
-    //             if ($this->image) {
-    //                 if (substr($this->image, 0, 8) === 'https://') {
-    //                     return $this->image;
-    //                 }
-    //                 return Storage::url($this->image);
-    //             } else {
-    //                 return "https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png"; // o una imagen por defecto
-    //             }
-    //         }
-    //     );
-    // }
 }

@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('/logeado/cart', [CartController::class, 'showCart'])->name('showcart');
     Route::post('/logeado/cart', [CartController::class, 'addcart'])->name('addcart');
+    Route::post('/logeado/carrito',[CartController::class,'updateQuantity'])->name('updateCart');
+    Route::get('/logeado/cart/delete', [CartController::class, 'deleteCart'])->name('deleteCart');
     Route::delete('/logeado/cart/{id}', [CartController::class, 'deleteBookCart'])->name('deleteBookCart');
     Route::get('/logeado/book/{id}', [BookController::class, 'showBooks'])->name('showBooks');
     Route::get('/logeado/cart/checkout/{direccion}/{ciudad}/{distrito}/{postal}', [CartController::class, 'success'])->name('success');

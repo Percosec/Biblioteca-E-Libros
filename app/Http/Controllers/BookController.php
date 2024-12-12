@@ -34,6 +34,7 @@ class BookController extends Controller
             "description" => 'required|string|max:255|regex:/^[^\s]/',
             "image" => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             "price" => 'required|numeric|min:0',
+            "stock" => 'required|numeric',
         ],[
             'title.required' => 'El titulo es requerido',
             'title.regex' => 'El titulo no puede comenzar con numeros',
@@ -65,6 +66,7 @@ class BookController extends Controller
             "description" => $request->description,
             "image" => $img,
             "price" => $request->price,
+            "stock" => $request->stock,
         ]);
 
         return redirect('/admin/books')->with('createSuccess','createSuccess');
@@ -85,6 +87,7 @@ class BookController extends Controller
             "description" => 'required|string|regex:/^[^\s]/',
             "image" => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp',
             "price" => 'required|numeric|min:0',
+            "stock" => 'required|numeric'
         ],[
             'author.regex' => 'El autor solo permite letras',
             'description.regex' => 'La descripcion no permite espacios al inicio'
@@ -106,6 +109,7 @@ class BookController extends Controller
             "description" => $request->description,
             "image" => $img,
             "price" => $request->price,
+            "stock" => $request->stock
         ]);
 
         return redirect('/admin/books')->with('updateSuccess','updateSuccess');
